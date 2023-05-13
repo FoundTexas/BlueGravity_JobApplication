@@ -6,8 +6,6 @@ public class Store : MonoBehaviour
     [SerializeField] private Inventory inventory;
     [SerializeField] private float saleMultiplier = 1.2f;
 
-    Player player;
-
     public float Multiplier
     {
         get { return saleMultiplier; }
@@ -19,7 +17,7 @@ public class Store : MonoBehaviour
         if (inventory.ContainsItem(item))
         {
             inventory.RemoveItem(item);
-            player.Inventory.AddItem(item);
+            Player.Inventory.AddItem(item);
         }
         else
         {
@@ -36,7 +34,7 @@ public class Store : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && other.TryGetComponent<Player>(out player))
+        if (other.tag == "Player" && Player.inst.gameObject == other.gameObject)
         {
             SetStoreUI(true);
         }

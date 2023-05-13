@@ -32,7 +32,6 @@ public class StoreUI : MonoBehaviour
 
     public static void SetUI(List<Item> items, Store store, bool active)
     {
-        Debug.Log("Setting");
         if (active)
         {
             inst.store = store;

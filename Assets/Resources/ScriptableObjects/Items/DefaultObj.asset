@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   price: 0
   id: DefaultObj
+  texture: {fileID: 0}
+  target: 2

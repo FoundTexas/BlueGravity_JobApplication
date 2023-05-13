@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29024fa49bd16a643b8895145fb934e9, type: 3}
-  m_Name: Red Shirt
+  m_Script: {fileID: 11500000, guid: ad3e57e80878c1e46a45b0cd7fb51854, type: 3}
+  m_Name: Woredrobe
   m_EditorClassIdentifier: 
-  price: 10
-  id: Shirt
-  texture: {fileID: 2100000, guid: d81fc69f0169a194499d83780a2307f3, type: 2}
-  target: 1
+  items: []

@@ -21,11 +21,14 @@ public class StoreItemUI : MonoBehaviour
 
         actionButton = transform.Find("ActionButton").GetComponent<Button>();
         actionButton.onClick.AddListener((sell ? SellItem : BuyItem));
+        actionButton.onClick.AddListener(DestroyButton);
+
         actionButton.GetComponentInChildren<TextMeshProUGUI>().text = sell ? "Buy" : "Sell";
 
         itemImage = transform.Find("ItemSpriteFrame").GetComponent<Image>();
     }
 
-    private void BuyItem() => store.BuyItem(item);
-    private void SellItem() => store.SellItem(item);
+    void DestroyButton() => Destroy(this.gameObject);
+    void BuyItem() => store.BuyItem(item);
+    void SellItem() => store.SellItem(item);
 }
