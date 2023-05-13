@@ -4,16 +4,22 @@ using UnityEngine;
 public class Store : MonoBehaviour
 {
     [SerializeField] private Inventory inventory;
-    [SerializeField] private float salePriceMultiplier = 1.2f;
+    [SerializeField] private float saleMultiplier = 1.2f;
+
+    Player player;
+
+    public float Multiplier
+    {
+        get { return saleMultiplier; }
+        private set { saleMultiplier = value; }
+    }
 
     public void SellItem(Item item)
     {
         if (inventory.ContainsItem(item))
         {
             inventory.RemoveItem(item);
-            float salePrice = item.Price * salePriceMultiplier;
-            // Add logic for selling the item here
-            Debug.Log("Sold " + item.name + " for " + salePrice);
+            player.Inventory.AddItem(item);
         }
         else
         {
@@ -23,10 +29,24 @@ public class Store : MonoBehaviour
 
     public void BuyItem(Item item)
     {
-        // Add logic for buying the item from the player here
-        Debug.Log("Bought " + item.name + " from player");
         inventory.AddItem(item);
     }
 
-    void SetStoreUI() => StoreUI.SetUI(inventory.GetItems());
+    void SetStoreUI(bool value) => StoreUI.SetUI(inventory.GetItems(), this, value);
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player" && other.TryGetComponent<Player>(out player))
+        {
+            SetStoreUI(true);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            SetStoreUI(false);
+        }
+    }
 }
