@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class StoreUI : MonoBehaviour
 {
     static StoreUI inst;
+    TextMeshProUGUI storetext;
     GameObject storeCanvas;
     GameObject storeItemUI;
     Transform sellcontent, buycontent;
@@ -13,6 +15,11 @@ public class StoreUI : MonoBehaviour
     Store store;
 
     public static bool OnStore() => inst.storeCanvas.activeInHierarchy;
+    public static TextMeshProUGUI StoreText
+    {
+        get{ return inst.storetext;}
+        set{inst.storetext = value;}
+    }
 
     private void Start()
     {
@@ -26,6 +33,8 @@ public class StoreUI : MonoBehaviour
         sell.onClick.AddListener(() => RePopulateScreen(sellcontent));
         buy = storeCanvas.transform.Find("Buy Button").GetComponent<Button>();
         buy.onClick.AddListener(() => RePopulateScreen(buycontent));
+
+        storetext = storeCanvas.transform.Find("StoreMoney").GetComponent<TextMeshProUGUI>();
 
 
         storeCanvas.SetActive(false);
@@ -59,6 +68,7 @@ public class StoreUI : MonoBehaviour
         {
             inst.store = store;
             inst.itemsForSale = items;
+            inst.storetext.text = "STORE " + store.Inventory.Money + "$" ; 
 
             inst.RePopulateScreen(inst.sellcontent);
             inst.RePopulateScreen(inst.buycontent);

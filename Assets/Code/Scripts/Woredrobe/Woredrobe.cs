@@ -47,8 +47,6 @@ public class Woredrobe : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(StoreUI.OnStore());
-
         if (Input.GetKeyDown(KeyCode.Space) && !StoreUI.OnStore())
         {
             Debug.Log("Entered with: " + StoreUI.OnStore());
