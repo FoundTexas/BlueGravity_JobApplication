@@ -8,10 +8,19 @@ public class WoredrobeItemUI : MonoBehaviour
 {
     public void SetUI(Item item)
     {
-        GetComponentInChildren<TextMeshProUGUI>().text = item.name;
+        if (item.ID.Equals("NULL") && item.Price < 0)
+        {
+            GetComponentInChildren<TextMeshProUGUI>().text = "";
+        }
+        else
+        {
+            GetComponentInChildren<TextMeshProUGUI>().text = item.name;
+            transform.Find("Image").GetComponent<Image>().sprite = item.Icon;
+            GetComponent<Button>().onClick.AddListener(DestroyButton);
+        }
+
 
         GetComponent<Button>().onClick.AddListener(() => EquipItem(item));
-        GetComponent<Button>().onClick.AddListener(DestroyButton);
     }
 
     void DestroyButton() => Destroy(this.gameObject);

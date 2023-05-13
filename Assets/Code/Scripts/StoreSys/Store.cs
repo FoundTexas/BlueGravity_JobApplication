@@ -27,6 +27,7 @@ public class Store : MonoBehaviour
 
     public void BuyItem(Item item)
     {
+        Player.Inventory.RemoveItem(item);
         inventory.AddItem(item);
     }
 
@@ -34,7 +35,7 @@ public class Store : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && Player.inst.gameObject == other.gameObject)
+        if (other.tag == "Player" && Player.inst.gameObject == other.gameObject && !Woredrobe.OnWardrobe())
         {
             SetStoreUI(true);
         }

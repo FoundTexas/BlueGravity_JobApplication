@@ -17,7 +17,7 @@ public class StoreItemUI : MonoBehaviour
         itemName = transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
         itemName.text = item.name;
         itemPrice = transform.Find("ItemPrice").GetComponent<TextMeshProUGUI>();
-        itemPrice.text = (item.Price * store.Multiplier ).ToString();
+        itemPrice.text = (item.Price * (sell ? store.Multiplier : 0.6f) ).ToString();
 
         actionButton = transform.Find("ActionButton").GetComponent<Button>();
         actionButton.onClick.AddListener((sell ? SellItem : BuyItem));

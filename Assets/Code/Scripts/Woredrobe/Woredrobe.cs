@@ -13,7 +13,7 @@ public class Woredrobe : MonoBehaviour
 
     GameObject woredrobe;
     GameObject woredrobeItemUI;
-    public Transform headitems, torsoitems;
+    Transform headitems, torsoitems;
 
     public static bool OnWardrobe() => inst.useFreeLookCamera;
 
@@ -47,8 +47,11 @@ public class Woredrobe : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        Debug.Log(StoreUI.OnStore());
+
+        if (Input.GetKeyDown(KeyCode.Space) && !StoreUI.OnStore())
         {
+            Debug.Log("Entered with: " + StoreUI.OnStore());
             if (useFreeLookCamera)
             {
                 ActivateVirtualCamera();
@@ -70,9 +73,13 @@ public class Woredrobe : MonoBehaviour
 
     void PopulateScreen(Transform parent, List<Item> items)
     {
+        GameObject storeItem = Instantiate(woredrobeItemUI, Vector3.zero, Quaternion.identity, parent);
+        storeItem.GetComponent<WoredrobeItemUI>().SetUI(
+        new Item(-10, "NULL", parent == headitems ? ClothTarget.HEAD : ClothTarget.TORSO));
+
         foreach (Item item in items)
         {
-            GameObject storeItem = Instantiate(woredrobeItemUI, Vector3.zero, Quaternion.identity, parent);
+            storeItem = Instantiate(woredrobeItemUI, Vector3.zero, Quaternion.identity, parent);
             storeItem.GetComponent<WoredrobeItemUI>().SetUI(item);
         }
     }
@@ -91,6 +98,10 @@ public class Woredrobe : MonoBehaviour
 
     private void ActivateFreeLookCamera()
     {
+        if(StoreUI.OnStore())
+        {
+            Debug.LogError("Entering on store active");
+        }
         RefreshAll();
 
         freeLookCamera.gameObject.SetActive(true);
@@ -109,16 +120,28 @@ public class Woredrobe : MonoBehaviour
 
     public static void EquipItem(Item item)
     {
-        List<Item> prev = Player.Clothing.GetItems().FindAll(x => x.Target == item.Target);
-
-        Player.Inventory.RemoveItem(item);
-        foreach (Item i in prev)
+        if (item.ID.Equals("NULL") && item.Price < 0)
         {
-            Player.Clothing.RemoveItem(i);
-            Player.Inventory.AddItem(i);
-        }
-        Player.Clothing.AddItem(item);
+            Item prev = Player.Clothing.GetItems().Find(x => x.Target == item.Target);
 
+            if (prev)
+            {
+                Player.Clothing.RemoveItem(prev);
+                Player.Inventory.AddItem(prev);
+            }
+        }
+        else
+        {
+            List<Item> prev = Player.Clothing.GetItems().FindAll(x => x.Target == item.Target);
+
+            Player.Inventory.RemoveItem(item);
+            foreach (Item i in prev)
+            {
+                Player.Clothing.RemoveItem(i);
+                Player.Inventory.AddItem(i);
+            }
+            Player.Clothing.AddItem(item);
+        }
 
         inst.RefreshAll();
 

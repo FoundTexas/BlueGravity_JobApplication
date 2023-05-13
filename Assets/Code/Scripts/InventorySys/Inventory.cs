@@ -4,7 +4,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Inventory", menuName = "Inventory/Inventory")]
 public class Inventory : ScriptableObject
 {
+    [SerializeField] float money;
     [SerializeField] private List<Item> items;
+
+    public float Money
+    {
+        get { return money; }
+        set { money = value; }
+    }
 
     public void AddItem(Item item)
     {

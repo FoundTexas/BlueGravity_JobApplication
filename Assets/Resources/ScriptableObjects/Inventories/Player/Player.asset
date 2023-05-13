@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad3e57e80878c1e46a45b0cd7fb51854, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
+  money: 0
   items:
-  - {fileID: 11400000, guid: aa7c7da6998117b42953b4eb80784aaa, type: 2}
   - {fileID: 11400000, guid: 06e15c20c3d579d4a8b4d5e0ba247cea, type: 2}
+  - {fileID: 11400000, guid: 06e15c20c3d579d4a8b4d5e0ba247cea, type: 2}
+  - {fileID: 11400000, guid: c97436a5c458a664dbfafa43ae2a2148, type: 2}
+  - {fileID: 11400000, guid: c85a1a08803362d45912875906baa1aa, type: 2}
