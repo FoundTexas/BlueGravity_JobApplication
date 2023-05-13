@@ -1,26 +1,36 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class StoreItemUI : MonoBehaviour
 {
-    [SerializeField] private Text itemNameText;
-    [SerializeField] private Text itemPriceText;
-    [SerializeField] private Button buyButton;
-    [SerializeField] private Item item;
+    TextMeshProUGUI itemPrice, itemName;
+    Button actionButton;
+    Image itemImage;
+    Item item;
 
-    private void Start()
-    {
-        buyButton.onClick.AddListener(BuyItem);
+    private void Awake() {
+        itemPrice = transform.Find("ItemPrice").GetComponent<TextMeshProUGUI>();
+        itemName = transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+        actionButton = transform.Find("ActionButton").GetComponent<Button>();
+        itemImage = transform.Find("ItemSpriteFrame").GetComponent<Image>();
     }
 
-    public void SetUI(Item item)
+    public void SetUI(Item item, bool sell = true)
     {
         this.item = item;
-        itemNameText.text = item.ID;
-        itemPriceText.text = item.Price.ToString();
+        itemName.text = item.ID;
+        itemPrice.text = item.Price.ToString();
+
+        actionButton.onClick.AddListener((sell ? SellItem : BuyItem));
+        actionButton.GetComponentInChildren<TextMeshProUGUI>().text = sell ? "Sell" : "Buy";
     }
 
     private void BuyItem()
+    {
+        // Do something when the buy button is clicked, like adding the item to the player's inventory
+    }
+    private void SellItem()
     {
         // Do something when the buy button is clicked, like adding the item to the player's inventory
     }
