@@ -16,3 +16,4 @@ MonoBehaviour:
   id: Hat
   texture: {fileID: 2100000, guid: d81fc69f0169a194499d83780a2307f3, type: 2}
   target: 0
+  icon: {fileID: 0}

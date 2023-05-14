@@ -1,3 +1,4 @@
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 public enum ClothTarget
@@ -48,7 +49,15 @@ public class Item : ScriptableObject
     {
         get
         {
-            return icon != null ? icon : LoadDefaultIcon();
+            if (!icon)
+                icon = Resources.Load<Sprite>("GeneratedSprites/" + name);
+
+            if (!icon)
+                icon = LoadDefaultIcon();
+
+            Debug.Log(icon);
+
+            return icon;
         }
         private set { icon = value; }
     }
@@ -76,14 +85,24 @@ public class Item : ScriptableObject
         // Get the updated thumbnail image
         Texture2D thumbnail = AssetPreview.GetAssetPreview(loadedObject);
 
-        Sprite newSprite = Sprite.Create(thumbnail, new Rect(0, 0, thumbnail.width, thumbnail.height), new Vector2(0.5f, 0.5f));
-        string path = "Assets/Art/GeneratedSprites/" + name + ".asset";
-        AssetDatabase.CreateAsset(newSprite, path);
-        AssetDatabase.Refresh();
+        //Sprite newSprite = Sprite.Create(thumbnail, new Rect(0, 0, thumbnail.width, thumbnail.height), new Vector2(0.5f, 0.5f));
 
 
-        this.icon = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+        // Encode the texture as PNG
+        byte[] bytes = thumbnail.EncodeToPNG();
 
-        return newSprite;
+        // Create a new file in the Resources folder with a unique filename
+        string fileName = name + ".png";
+        string filePath = Application.dataPath + "/Resources/GeneratedSprites/" + fileName;
+        File.WriteAllBytes(filePath, bytes);
+
+        //string path = "Assets/Art/GeneratedSprites/" + name + ".asset";
+
+
+        Sprite tmp = Resources.Load<Sprite>("GeneratedSprites/" + name);
+
+        Debug.Log(tmp != null);
+
+        return tmp;
     }
 }

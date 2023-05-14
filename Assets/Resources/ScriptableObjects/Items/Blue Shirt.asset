@@ -16,3 +16,4 @@ MonoBehaviour:
   id: Shirt
   texture: {fileID: 2100000, guid: 68143c10437f6a744991eb2b2f1ccc70, type: 2}
   target: 1
+  icon: {fileID: 0}
