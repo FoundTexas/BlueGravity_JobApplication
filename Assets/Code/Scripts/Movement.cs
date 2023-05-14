@@ -17,6 +17,9 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
+        if(Woredrobe.OnWardrobe())
+            return;
+        
         mov = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         if (mov != Vector2.zero)
