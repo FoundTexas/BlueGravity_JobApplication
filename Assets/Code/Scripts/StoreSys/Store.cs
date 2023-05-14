@@ -82,4 +82,18 @@ public class Store : MonoBehaviour
             SetStoreUI(false);
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.tag == "Player" && Player.inst.gameObject == other.gameObject && !Woredrobe.OnWardrobe())
+        {
+            SetStoreUI(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            SetStoreUI(false);
+        }
+    }
 }

@@ -7,8 +7,7 @@ using System.Linq;
 public class Woredrobe : MonoBehaviour
 {
     static Woredrobe inst;
-    CinemachineFreeLook freeLookCamera; // The CinemachineFreeLook camera
-    CinemachineVirtualCamera virtualCamera; // The CinemachineVirtualCamera camera
+    GameObject outfitCamera, topDownCamera;
     bool useFreeLookCamera = false; // Whether to use the free look camera by default
 
     GameObject woredrobe;
@@ -26,8 +25,8 @@ public class Woredrobe : MonoBehaviour
     {
         woredrobeItemUI = Resources.Load<GameObject>("Prefabs/WoredrobeItemUI");
         Transform tempT = GameObject.Find("Cameras").transform;
-        freeLookCamera = tempT.Find("OutFitView").GetComponent<CinemachineFreeLook>();
-        virtualCamera = tempT.Find("TopDownView").GetComponent<CinemachineVirtualCamera>();
+        outfitCamera = tempT.Find("OutFitView").gameObject;
+        topDownCamera = tempT.Find("TopDownView").gameObject;
 
         woredrobe = transform.Find("woredrobe").gameObject;
 
@@ -102,16 +101,16 @@ public class Woredrobe : MonoBehaviour
         }
         RefreshAll();
 
-        freeLookCamera.gameObject.SetActive(true);
-        virtualCamera.gameObject.SetActive(false);
+        outfitCamera.gameObject.SetActive(true);
+        topDownCamera.gameObject.SetActive(false);
         useFreeLookCamera = true;
         woredrobe.SetActive(true);
     }
 
     void ActivateVirtualCamera()
     {
-        freeLookCamera.gameObject.SetActive(false);
-        virtualCamera.gameObject.SetActive(true);
+        outfitCamera.gameObject.SetActive(false);
+        topDownCamera.gameObject.SetActive(true);
         useFreeLookCamera = false;
         woredrobe.SetActive(false);
     }

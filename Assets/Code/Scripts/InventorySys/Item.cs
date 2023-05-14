@@ -52,9 +52,6 @@ public class Item : ScriptableObject
             if (!icon)
                 icon = Resources.Load<Sprite>("GeneratedSprites/" + name);
 
-            if (!icon)
-                icon = LoadDefaultIcon();
-
             Debug.Log(icon);
 
             return icon;
@@ -79,22 +76,22 @@ public class Item : ScriptableObject
         if (renderer != null)
         {
             renderer.material = texture;
-            AssetDatabase.Refresh();
+            //AssetDatabase.Refresh();
         }
 
         // Get the updated thumbnail image
-        Texture2D thumbnail = AssetPreview.GetAssetPreview(loadedObject);
+        //Texture2D thumbnail = AssetPreview.GetAssetPreview(loadedObject);
 
         //Sprite newSprite = Sprite.Create(thumbnail, new Rect(0, 0, thumbnail.width, thumbnail.height), new Vector2(0.5f, 0.5f));
 
 
         // Encode the texture as PNG
-        byte[] bytes = thumbnail.EncodeToPNG();
+        //byte[] bytes = thumbnail.EncodeToPNG();
 
         // Create a new file in the Resources folder with a unique filename
         string fileName = name + ".png";
         string filePath = Application.dataPath + "/Resources/GeneratedSprites/" + fileName;
-        File.WriteAllBytes(filePath, bytes);
+        //File.WriteAllBytes(filePath, bytes);
 
         //string path = "Assets/Art/GeneratedSprites/" + name + ".asset";
 
